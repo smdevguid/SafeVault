@@ -1,0 +1,121 @@
+@HostAddress = http://localhost:5199
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc5MTg0NDMyOSwiaXNzIjoiU2FmZVZhdWx0IiwiYXVkIjoiU2FmZVZhdWx0VXNlcnMifQ.ew8fA9IRPhGpIohymT0tPDLWT6EX2BHEM76830jkLJE
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlcjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiZXhwIjoxNzkxODQ0MjY3LCJpc3MiOiJTYWZlVmF1bHQiLCJhdWQiOiJTYWZlVmF1bHRVc2VycyJ9.WFSfqLuqygm7ZiliaRWGOCMWYNpmTcFC0qHMT9cXFeo
+### ==================================================
+### REGISTRO DE ADMIN
+### ==================================================
+
+POST {{HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "email": "admin@safevault.com",
+  "password": "Password123!",
+  "role": "Admin"
+}
+
+###
+
+### ==================================================
+### REGISTRO DE USER
+### ==================================================
+
+POST {{HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "email": "user1@safevault.com",
+  "password": "Password123!",
+  "role": "User"
+}
+
+###
+
+### ==================================================
+### REGISTRO DE GUEST
+### ==================================================
+
+POST {{HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "guest1",
+  "email": "guest1@safevault.com",
+  "password": "Password123!",
+  "role": "Guest"
+}
+
+###
+
+### ==================================================
+### LOGIN ADMIN
+### ==================================================
+
+POST {{HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "Password123!"
+}
+
+###
+
+### ==================================================
+### LOGIN USER
+### ==================================================
+
+POST {{HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "Password123!"
+}
+
+###
+
+### ==================================================
+### LOGIN INVÁLIDO
+### ==================================================
+
+POST {{HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "WrongPassword"
+}
+
+###
+
+### ==================================================
+### ACCESO ADMIN
+### REEMPLAZAR TOKEN
+### ==================================================
+
+GET {{HostAddress}}/api/admin/dashboard
+Authorization: Bearer {{token}}
+
+###
+
+### ==================================================
+### ACCESO SIN TOKEN
+### DEBE REGRESAR 401
+### ==================================================
+
+GET {{HostAddress}}/api/admin/dashboard
+
+###
+
+### ==================================================
+### ACCESO TOKEN USER
+### DEBE REGRESAR 403
+### ==================================================
+
+GET {{HostAddress}}/api/admin/dashboard
+Authorization: Bearer {{userToken}}
+
+###
